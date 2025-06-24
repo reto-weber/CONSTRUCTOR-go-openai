@@ -191,6 +191,10 @@ func (c *Client) setCommonHeaders(req *http.Request) {
 		req.Header.Set("anthropic-version", c.config.APIVersion)
 	case APITypeOpenAI, APITypeAzureAD:
 		fallthrough
+	case APITypeConstructor:
+		if c.config.authToken == "" {
+			req.Header.Set("X-KM-AccessKey", fmt.Sprintf("Bearer %s", c.config.authToken))
+		}
 	default:
 		if c.config.authToken != "" {
 			req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.config.authToken))

@@ -18,6 +18,7 @@ const (
 type APIType string
 
 const (
+	APITypeConstructor     APIType = "CONSTRUCTOR"
 	APITypeOpenAI          APIType = "OPEN_AI"
 	APITypeAzure           APIType = "AZURE"
 	APITypeAzureAD         APIType = "AZURE_AD"
@@ -53,6 +54,23 @@ func DefaultConfig(authToken string) ClientConfig {
 		authToken:        authToken,
 		BaseURL:          openaiAPIURLv1,
 		APIType:          APITypeOpenAI,
+		AssistantVersion: defaultAssistantVersion,
+		OrgID:            "",
+
+		HTTPClient: &http.Client{},
+
+		EmptyMessagesLimit: defaultEmptyMessagesLimit,
+	}
+}
+
+func DefaultConstructorConfig(authToken, baseURL string) ClientConfig {
+	if baseURL == "" {
+		baseURL = "https://constructor.app/api/platform-kmapi/v1"
+	}
+	return ClientConfig{
+		authToken:        authToken,
+		BaseURL:          baseURL,
+		APIType:          APITypeConstructor,
 		AssistantVersion: defaultAssistantVersion,
 		OrgID:            "",
 
