@@ -1,3 +1,3 @@
-module github.com/reto-weber/CONSTRUCTIOR-go-openai
+module github.com/reto-weber/CONSTRUCTOR-go-openai
 
 go 1.18
